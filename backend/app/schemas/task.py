@@ -1,10 +1,11 @@
 from datetime import datetime
+from uuid import UUID
 from pydantic import BaseModel
 from typing import Optional
 from app.models.task import TaskStatus
 
 class TaskCreate(BaseModel):
-    titile: str
+    title: str
     description: Optional[str]
     status: TaskStatus = TaskStatus.PENDING
 
@@ -17,7 +18,7 @@ class TaskStatusUpdate(BaseModel):
     status: TaskStatus
 
 class TaskResponse(BaseModel):
-    id: int
+    id: UUID
     title: str
     description: Optional[str]
     status: TaskStatus

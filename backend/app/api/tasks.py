@@ -38,7 +38,7 @@ def get_task(
     db: Session = Depends(get_db)
 ):
     task = db.query(Task).filter(
-        Task.id == task.id,
+        Task.id == task_id,
         Task.org_id == user.org_id,
     ).first()
 

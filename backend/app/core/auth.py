@@ -36,8 +36,9 @@ def convert_to_httpx_request(fastapi_request: Request) -> httpx.Request:
         headers=dict(fastapi_request.headers)
     )
 
+
 async def get_current_user(request: Request) -> AuthUser:
-    httpx_request = self.convert_to_httpx_request(request)
+    httpx_request = convert_to_httpx_request(request)
     request_state = clerk.authenticate_request(
         httpx_request,
         AuthenticateRequestOptions(authorized_parties=[settings.FRONTEND_URL])
@@ -51,7 +52,6 @@ async def get_current_user(request: Request) -> AuthUser:
     user_id = claims.get("sub")
     org_id = claims.get("org_id")
     org_permissions = claims.get("permissions") or claims.get("org_permissions") or []
-
     if not user_id:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated"
@@ -73,7 +73,7 @@ def require_view(user: AuthUser = Depends(get_current_user)) -> AuthUser:
     return user
 
 def require_create(user: AuthUser = Depends(get_current_user)) -> AuthUser:
-        if not user.can_view:
+        if not user.can_create:
             raise HTTPException(
                 status_code = status.HTTP_403_FORBIDDEN,
                 detail="Create permission required"
@@ -81,7 +81,7 @@ def require_create(user: AuthUser = Depends(get_current_user)) -> AuthUser:
         return user
 
 def require_delete(user: AuthUser = Depends(get_current_user)) -> AuthUser:
-        if not user.can_view:
+        if not user.can_delete:
             raise HTTPException(
                 status_code = status.HTTP_403_FORBIDDEN,
                 detail="Delete permission required"
@@ -89,7 +89,7 @@ def require_delete(user: AuthUser = Depends(get_current_user)) -> AuthUser:
         return user
 
 def require_edit(user: AuthUser = Depends(get_current_user)) -> AuthUser:
-        if not user.can_view:
+        if not user.can_edit:
             raise HTTPException(
                 status_code = status.HTTP_403_FORBIDDEN,
                 detail="Edit permission required"
