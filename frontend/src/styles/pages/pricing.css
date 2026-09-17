@@ -24,3 +24,13 @@
 .pricing-admin-note {
   text-align: center;
 }
+
+@media (max-width: 640px) {
+  .pricing-container {
+    padding: var(--spacing-10) var(--spacing-4);
+  }
+
+  .pricing-title {
+    font-size: var(--text-3xl);
+  }
+}

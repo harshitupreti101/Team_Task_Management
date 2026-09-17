@@ -1,25 +1,42 @@
+import { useState } from "react"
 import { Outlet, Link } from "react-router-dom"
 import { SignedIn, SignedOut, UserButton, OrganizationSwitcher, useOrganization } from "@clerk/clerk-react";
 
 function Layout() {
     const { organization } = useOrganization()
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    function closeMenu() {
+        setMenuOpen(false)
+    }
 
     return <div className={"layout"}>
         <div className={"nav"}>
             <div className={"nav-container"}>
-                <Link to={"/"} className={"nav-logo"}>
+                <Link to={"/"} className={"nav-logo"} onClick={closeMenu}>
                     TaskBoard
                 </Link>
 
-                <div className={"nav-links"}>
-                    <Link to={"/pricing"} className={"nav-link"}>
+                <button
+                    className={"nav-menu-button"}
+                    type={"button"}
+                    aria-expanded={menuOpen}
+                    aria-controls={"primary-navigation"}
+                    onClick={() => setMenuOpen(open => !open)}
+                >
+                    <span className={"sr-only"}>{menuOpen ? "Close menu" : "Open menu"}</span>
+                    <span aria-hidden={"true"}>{menuOpen ? "x" : "☰"}</span>
+                </button>
+
+                <div id={"primary-navigation"} className={`nav-links${menuOpen ? " nav-links-open" : ""}`}>
+                    <Link to={"/pricing"} className={"nav-link"} onClick={closeMenu}>
                         Pricing
                     </Link>
                     <SignedOut>
-                        <Link to={"/sign-in"} className={"nav-link"}>
+                        <Link to={"/sign-in"} className={"nav-link"} onClick={closeMenu}>
                             Sign In
                         </Link>
-                        <Link to={"/sign-up"} className={"btn btn-primary"}>
+                        <Link to={"/sign-up"} className={"btn btn-primary"} onClick={closeMenu}>
                             Sign Up
                         </Link>
                     </SignedOut>
@@ -29,7 +46,7 @@ function Layout() {
                             afterCreateOrganizationUrl={"dashboard"}
                             afterSelectOrganizationUrl={"dashboard"}
                             createOrganizationMode={"modal"}
-w                            appearance={{
+                            appearance={{
                                 elements: {
                                     organizationSwitcherTrigger: { color: "white" },
                                     organizationSwitcherTriggerIcon: { color: "white" },
@@ -39,7 +56,7 @@ w                            appearance={{
                             }}
                         />
                         {organization &&
-                            <Link to={"/dashboard"} className={"nav-link"}>
+                            <Link to={"/dashboard"} className={"nav-link"} onClick={closeMenu}>
                                 Dashboard
                             </Link>}
                         <UserButton />

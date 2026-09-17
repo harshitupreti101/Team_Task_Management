@@ -111,3 +111,19 @@
   margin-top: var(--spacing-6);
 }
 
+@media (max-width: 480px) {
+  .modal-header,
+  .modal form {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}
+

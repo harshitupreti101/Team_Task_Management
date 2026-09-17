@@ -68,3 +68,18 @@
   font-size: var(--text-sm);
   margin-top: var(--spacing-1);
 }
+
+@media (max-width: 640px) {
+  .dashboard-container {
+    padding: var(--spacing-8) var(--spacing-4);
+  }
+
+  .dashboard-title,
+  .no-org-title {
+    font-size: var(--text-2xl);
+  }
+
+  .no-org-container {
+    padding: var(--spacing-8) 0;
+  }
+}

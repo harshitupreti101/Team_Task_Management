@@ -5,3 +5,9 @@
   padding: var(--spacing-20) var(--spacing-4);
 }
 
+@media (max-width: 640px) {
+  .auth-container {
+    padding: var(--spacing-8) var(--spacing-3);
+  }
+}
+

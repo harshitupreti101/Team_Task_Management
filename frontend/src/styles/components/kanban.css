@@ -21,6 +21,10 @@
   gap: var(--spacing-4);
 }
 
+.kanban-column {
+  min-width: 0;
+}
+
 /* Kanban Column */
 .kanban-column {
   background-color: rgba(30, 41, 59, 0.5);
@@ -141,5 +145,29 @@
 .task-card-btn-delete:hover {
   background-color: rgba(239, 68, 68, 0.2);
   color: var(--color-red-400);
+}
+
+@media (max-width: 760px) {
+  .kanban-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .kanban-header .btn {
+    width: 100%;
+  }
+
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+
+  .kanban-column {
+    min-height: 0;
+  }
+
+  .task-card-btn {
+    opacity: 1;
+  }
 }
 

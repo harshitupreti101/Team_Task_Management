@@ -36,3 +36,26 @@
   justify-content: center;
 }
 
+@media (max-width: 640px) {
+  .home-container {
+    padding: var(--spacing-12) var(--spacing-4);
+  }
+
+  .home-title {
+    font-size: var(--text-4xl);
+  }
+
+  .home-subtitle {
+    font-size: var(--text-base);
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .home-buttons .btn {
+    width: 100%;
+  }
+}
+
